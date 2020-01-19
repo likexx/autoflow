@@ -1,0 +1,62 @@
+{
+	"steps":[
+				{
+					"id": "0",
+					"next": "start"
+				},
+				{
+				"id": "start",
+				"action": "create_browser",
+				"parameter": {"value": "chrome"},
+				"next": "open_baidu"
+				},
+				{
+				"id": "open_baidu",
+				"action": "open_url",
+				"parameter": {"value": "http://www.baidu.com"},
+				"next": "check_baidu_search_input"
+				},
+				{
+				"id": "open_sogou",
+				"action": "open_url",
+				"parameter": {"value": "http://www.sogou.com"},
+				"next": "check_sogou_search_input"
+				},
+				{
+				"id": "check_baidu_search_input",
+				"action": "find_by_id",
+				"parameter": {"id": "kw"},
+				"next": "input_on_baidu_search",
+				"onError": "open_sogou"
+				},
+				{
+				"id": "input_on_baidu_search",
+				"action": "send_keys_to_id",
+				"parameter": {"id": "kw", "value": "data driven"},
+				"next": "click_baidu_search"
+				},
+				{
+				"id": "click_baidu_search",
+				"action": "click_on_id",
+				"parameter": {"id": "su"},
+				"next": "open_sogou"
+				},
+				{
+				"id": "check_sogou_search_input",
+				"action": "find_by_id",
+				"parameter": {"id": "query"},
+				"next": "input_on_sogou_search"
+				},
+				{
+				"id": "input_on_sogou_search",
+				"action": "send_keys_to_id",
+				"parameter": {"id": "query", "value": "data driven"},
+				"next": "click_sogou_search"
+				},
+				{
+				"id": "click_sogou_search",
+				"action": "click_on_id",
+				"parameter": {"id": "stb"}
+				}
+			]
+}
