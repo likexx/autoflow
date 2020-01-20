@@ -26,6 +26,21 @@
 				"id": "check_baidu_search_input",
 				"action": "find_by_id",
 				"parameter": {"id": "kw"},
+				"next": "get_baidu_username",
+				"onError": "open_sogou"
+				},
+				{
+				"id": "get_baidu_username",
+				"action": "send_value_by_classname",
+				"parameter": {"classname": "username", "resultKey": "result"},
+				"next": "verify_baidu_username",
+				"onError": "input_on_baidu_search"
+				},
+				{
+				"id": "verify_baidu_username",
+				"serverAction": "Verify",
+				"parameter": {"resultKey": "result", "expect":"testuser"},
+				"action": "pass",
 				"next": "input_on_baidu_search",
 				"onError": "open_sogou"
 				},

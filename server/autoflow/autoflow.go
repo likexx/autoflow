@@ -40,12 +40,16 @@ func (f *Autoflow) CreateSession(flowName string) string {
     f.redisClient.HSet(sessionId, "flowname", flowName)
     f.setCurrentFlowStepId(sessionId, "0")
 
-    f.redisClient.Expire(sessionId, time.Duration(3600)*time.Second)
+    f.getFlowStep(flowName, "0")
+
+    timeout := time.Duration(3600)*time.Second
+    f.redisClient.Expire(sessionId, timeout)
+    f.redisClient.Expire(flowName, timeout)
 
     return sessionId
 }
 
-func (f *Autoflow) QueryNextStep(sessionId string) (string, ActionParameter) {
+func (f *Autoflow) QueryNextStep(sessionId string, clientParams map[string]interface{}) (string, ActionParameter) {
     log.Printf("QueryStep for session %s\n", sessionId)
     flowname, currentStep, succeed := f.getCurrentStep(sessionId)
     if !succeed {
@@ -58,6 +62,15 @@ func (f *Autoflow) QueryNextStep(sessionId string) (string, ActionParameter) {
     }
 
     f.setCurrentFlowStepId(sessionId, nextStep.Id)
+
+    if len(nextStep.ServerAction) > 0 {
+        // perform serverAction if exists
+        if !invokeServerAction(nextStep.ServerAction, clientParams, nextStep.Parameter) {
+            log.Printf("Error: server side action failed")
+            return f.OnError(sessionId)
+        }
+        return nextStep.Action, nil
+    }
 
     return nextStep.Action, nextStep.Parameter
 }

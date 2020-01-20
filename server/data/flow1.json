@@ -1,61 +1,61 @@
 {
-	"steps":[
-				{
-					"id": "0",
-					"next": "1"
-				},
-				{
-				"id": "1",
-				"action": "create_browser",
-				"parameter": {"value": "chrome"},
-				"next": "2"
-				},
-				{
-				"id": "2",
-				"action": "open_url",
-				"parameter": {"value": "http://mail.qq.com"},
-				"next": "3"
-				},
-				{
-				"id": "3",
-				"action": "find_by_id",
-				"parameter": {"id": "login_form"},
-				"next": "4"
-				},
-				{
-				"id": "4",
-				"action": "find_by_id",
-				"parameter": {"id": "u"},
-				"next": "5"
-				},
-				{
-				"id": "5",
-				"action": "find_by_id",
-				"parameter": {"id": "p"},
-				"next": "6"
-				},
-				{
-				"id": "6",
-				"action": "find_by_id",
-				"parameter": {"id": "login_btn"},
-				"next": "7"
-				},
-				{
-				"id": "7",
-				"action": "send_keys_to_id",
-				"parameter": {"id": "u", "value": "testuser"},
-				"next": "8"
-				},
-				{
-				"id": "8",
-				"action": "send_keys_to_id",
-				"parameter": {"id":"p", "value": "12345678"},
-				"next": "9"
-				},
-				{
-				"id": "9",
-				"action": "click_on_id",
-				"parameter": {"id": "login_btn"}
-				}
-			]
+    "steps":[
+                {
+                    "id": "0",
+                    "next": "1"
+                },
+                {
+                "id": "1",
+                "action": "create_browser",
+                "parameter": {"value": "chrome"},
+                "next": "2"
+                },
+                {
+                "id": "2",
+                "action": "open_url",
+                "parameter": {"value": "http://mail.qq.com"},
+                "next": "3"
+                },
+                {
+                "id": "3",
+                "action": "find_by_id",
+                "parameter": {"id": "login_form"},
+                "next": "4"
+                },
+                {
+                "id": "4",
+                "action": "find_by_id",
+                "parameter": {"id": "u"},
+                "next": "5"
+                },
+                {
+                "id": "5",
+                "action": "find_by_id",
+                "parameter": {"id": "p"},
+                "next": "6"
+                },
+                {
+                "id": "6",
+                "action": "find_by_id",
+                "parameter": {"id": "login_btn"},
+                "next": "7"
+                },
+                {
+                "id": "7",
+                "action": "send_keys_to_id",
+                "parameter": {"id": "u", "value": "testuser"},
+                "next": "8"
+                },
+                {
+                "id": "8",
+                "action": "send_keys_to_id",
+                "parameter": {"id":"p", "value": "12345678"},
+                "next": "9"
+                },
+                {
+                "id": "9",
+                "action": "click_on_id",
+                "parameter": {"id": "login_btn"}
+                }
+            ]
 }

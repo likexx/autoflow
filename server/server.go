@@ -4,6 +4,7 @@ import (
     "fmt"
     "net/http"
     "log"
+    "io/ioutil"
     "encoding/json"
     "github.com/gorilla/mux"
     autoflow "server/autoflow"
@@ -38,8 +39,21 @@ func autoflowCreateSession(w http.ResponseWriter, r *http.Request) {
 func autoflowNext(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
     sessionId := vars["session_id"]
+
+    var clientParams map[string]interface{}
+
+    bodyBytes, err := ioutil.ReadAll(r.Body)
+    if err != nil {
+        fmt.Fprintf(w, "missing ")
+        return
+    }
+
+    if len(bodyBytes) > 0 {
+        json.Unmarshal(bodyBytes, &clientParams)
+    }
+
     flow := autoflow.GetInstance()
-    action, parameters := flow.QueryNextStep(sessionId)
+    action, parameters := flow.QueryNextStep(sessionId, clientParams)
 
     result := QueryNextResponse{0, action, parameters}
     w.Header().Set("Content-Type", "application/json")
