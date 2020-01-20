@@ -21,10 +21,6 @@ type QueryNextResponse struct {
     Parameters autoflow.ActionParameter
 }
 
-func healthcheck(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "hello") // send data to client side
-}
-
 func autoflowCreateSession(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
     flowName := vars["flowname"]
@@ -84,7 +80,6 @@ func autoflowStop(w http.ResponseWriter, r *http.Request) {
 
 func main() {
     r := mux.NewRouter()
-    r.HandleFunc("/healthcheck", healthcheck).Methods("GET")
 
     a := r.PathPrefix("/autoflow").Subrouter()
     a.HandleFunc("/create/{flowname}", autoflowCreateSession).Methods("POST")

@@ -40,8 +40,6 @@ func (f *Autoflow) CreateSession(flowName string) string {
     f.redisClient.HSet(sessionId, "flowname", flowName)
     f.setCurrentFlowStepId(sessionId, "0")
 
-    f.getFlowStep(flowName, "0")
-
     timeout := time.Duration(3600)*time.Second
     f.redisClient.Expire(sessionId, timeout)
     f.redisClient.Expire(flowName, timeout)
